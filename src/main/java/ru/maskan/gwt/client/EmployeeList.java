@@ -4,12 +4,14 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.google.gwt.core.client.GWT;
 
+import java.util.List;
+
 /**
  * Created by akonshina on 23.05.14.
  */
 @RemoteServiceRelativePath("EmployeeList")
 public interface EmployeeList extends RemoteService {
-    Employee[] getAll();
+    List<Employee> getAll();
 
     /**
      * Utility/Convenience class.

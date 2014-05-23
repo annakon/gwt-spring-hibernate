@@ -14,7 +14,7 @@ public class EmployeeListImpl extends RemoteServiceServlet implements EmployeeLi
 
 
     @Override
-    public Employee[] getAll() {
+    public List<Employee> getAll() {
         List<Employee> l = new ArrayList<Employee>();
 
         Employee e = new Employee();
@@ -51,6 +51,6 @@ public class EmployeeListImpl extends RemoteServiceServlet implements EmployeeLi
         e.setAge(26);
         e.setDescription("my 7");
 
-        return l.toArray(new Employee[l.size()]);
+        return l;
     }
 }
