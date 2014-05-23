@@ -5,3 +5,12 @@ body {
     font-size: small;
     margin: 8px;
 }
+#empl-list {
+    margin-top: 20px;
+}
+
+#empl-list .glyphicon {
+
+    padding-right: 10px;
+    cursor: pointer;
+}
