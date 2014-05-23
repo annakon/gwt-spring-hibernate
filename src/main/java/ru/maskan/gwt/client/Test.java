@@ -27,8 +27,8 @@ public class Test implements EntryPoint {
 
         service.getAll(new MyAsyncCallback(a));
 
-        RootPanel.get("slot1").add(grid);
-        RootPanel.get("slot2").add(a);
+//        RootPanel.get("slot1").add(grid);
+//        RootPanel.get("slot2").add(a);
     }
 
     private static class MyAsyncCallback implements AsyncCallback<Employee[]> {
