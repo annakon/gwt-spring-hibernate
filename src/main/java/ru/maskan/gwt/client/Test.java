@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import ru.maskan.gwt.client.ui.ActionHasCell;
+import ru.maskan.gwt.client.ui.EmployeeTableBuilder;
 import ru.maskan.gwt.client.ui.InputAndLabel;
 
 import java.util.LinkedList;
@@ -25,97 +26,12 @@ import static com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.Key
  */
 public class Test implements EntryPoint {
 
+    private EmployeeTableBuilder tableBuilder = new EmployeeTableBuilder();
+
     //    private ArrayList<String> stocks = new ArrayList<String>();
     private EmployeeListAsync service = GWT.create(EmployeeList.class);
 
     public void onModuleLoad() {
-
-
-        final CellTable<Employee> table = new CellTable<Employee>();
-        table.setStyleName("table table-striped");
-        table.setKeyboardSelectionPolicy(DISABLED);
-
-        TextColumn<Employee> lastNameColumn = new TextColumn<Employee>() {
-            @Override
-            public String getValue(Employee employee) {
-                return employee.getLastname();
-            }
-        };
-
-        TextColumn<Employee> firstNameColumn = new TextColumn<Employee>() {
-            @Override
-            public String getValue(Employee employee) {
-                return employee.getFirstname();
-            }
-        };
-
-        TextColumn<Employee> secondNameColumn = new TextColumn<Employee>() {
-            @Override
-            public String getValue(Employee employee) {
-                return employee.getSecondname();
-            }
-        };
-
-        TextColumn<Employee> ageColumn = new TextColumn<Employee>() {
-            @Override
-            public String getValue(Employee employee) {
-                return String.valueOf(employee.getAge());
-            }
-        };
-
-        TextColumn<Employee> descriptionColumn = new TextColumn<Employee>() {
-            @Override
-            public String getValue(Employee employee) {
-                return employee.getDescription();
-            }
-        };
-
-        TextColumn<Employee> experienceColumn = new TextColumn<Employee>() {
-            @Override
-            public String getValue(Employee employee) {
-                return employee.getExperience();
-            }
-        };
-
-        TextColumn<Employee> idColumn = new TextColumn<Employee>() {
-            @Override
-            public String getValue(Employee employee) {
-                return String.valueOf(employee.getId());
-            }
-        };
-
-        //TODO use constants
-        SafeHtml s = new SafeHtml() {
-            @Override
-            public String asString() {
-                return "<span class=\"glyphicon glyphicon-edit\"></span>";
-            }
-        };
-
-
-        List<HasCell<Employee, ?>> cells = new LinkedList<HasCell<Employee, ?>>();
-        cells.add(new ActionHasCell(s, new ActionCell.Delegate<Employee>() {
-
-            @Override
-            public void execute(Employee object) {
-                // EDIT CODE
-            }
-        }));
-        cells.add(new ActionHasCell(s, new ActionCell.Delegate<Employee>() {
-
-            @Override
-            public void execute(Employee object) {
-                // DELETE CODE
-            }
-        }));
-        CompositeCell<Employee> cell = new CompositeCell<Employee>(cells);
-
-        Column<Employee, Employee> editColumn = new Column<Employee, Employee>(cell) {
-                @Override
-                public Employee getValue(Employee employee) {
-                    return employee;
-                }
-            };
 
         AsyncDataProvider<Employee> provider = new AsyncDataProvider<Employee>() {
             @Override
@@ -138,23 +54,8 @@ public class Test implements EntryPoint {
             }
         };
 
-        // Add the columns.
-        table.addColumn(idColumn, "#");
-        table.addColumn(lastNameColumn, "Фамилия");
-        table.addColumn(firstNameColumn, "Имя");
-        table.addColumn(secondNameColumn, "Отчество");
-        table.addColumn(ageColumn, "Возраст");
-        table.addColumn(experienceColumn, "Опыт");
-        table.addColumn(descriptionColumn, "Описание");
-        table.addColumn(editColumn, "Действия");
 
-        table.setVisibleRange(0, 3);
-
-        // Connect the list to the data provider.
-        provider.addDataDisplay(table);
-
-        // We know that the data is sorted alphabetically by default.
-        table.getColumnSortList().push(lastNameColumn);
+        CellTable table = tableBuilder.buildTable(provider);
 
         // Add it to the root panel.
         RootPanel.get("empl-list").add(table);
