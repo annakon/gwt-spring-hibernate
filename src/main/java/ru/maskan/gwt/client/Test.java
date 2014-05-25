@@ -3,17 +3,17 @@ package ru.maskan.gwt.client;
 import com.google.gwt.cell.client.*;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.*;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
-import com.google.gwt.view.client.Range;
+import ru.maskan.gwt.client.ui.ActionHasCell;
+import ru.maskan.gwt.client.ui.InputAndLabel;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -84,57 +84,7 @@ public class Test implements EntryPoint {
             }
         };
 
-//        Column<Employee> editColumn = new Column<Employee>(new ButtonCell() {
-//
-//            @Override
-//            public Employee getValue(Object o) {
-//                return null;
-//            }
-//        });
-
-//        private <C> Column<ContactInfo, C> addColumn(Cell<C> cell, String headerText,
-//        final GetValue<C> getter, FieldUpdater<ContactInfo, C> fieldUpdater) {
-//            Column<ContactInfo, C> column = new Column<ContactInfo, C>(cell) {
-//                @Override
-//                public C getValue(ContactInfo object) {
-//                    return getter.getValue(object);
-//                }
-//            };
-//            column.setFieldUpdater(fieldUpdater);
-//            if (cell instanceof AbstractEditableCell<?, ?>) {
-//                editableCells.add((AbstractEditableCell<?, ?>) cell);
-//            }
-//            contactList.addColumn(column, headerText);
-//            return column;
-//        }
-
-//        addColumn(new ButtonCell(), "Button", new GetValue<String>() {
-//            @Override
-//            public String getValue(ContactInfo contact) {
-//                return "Click " + contact.getFirstName();
-//            }
-//        }, new FieldUpdater<ContactInfo, String>() {
-//            @Override
-//            public void update(int index, ContactInfo object, String value) {
-//                Window.alert("You clicked " + object.getFullName());
-//            }
-//        });
-
-//        ButtonCell b = new ButtonCell() {
-//
-//            @Override
-//            public void render(Context context, SafeHtml data, SafeHtmlBuilder sb) {
-//                super.render(context, data, sb);
-//            }
-//
-//            @Override
-//            protected void onEnterKeyDown(Context context, Element parent, String value, NativeEvent event, ValueUpdater<String> valueUpdater) {
-//                super.onEnterKeyDown(context, parent, value, event, valueUpdater);
-//
-//                Window.alert(context.getKey().toString());
-//            }
-//        };
-
+        //TODO use constants
         SafeHtml s = new SafeHtml() {
             @Override
             public String asString() {
@@ -208,28 +158,71 @@ public class Test implements EntryPoint {
 
         // Add it to the root panel.
         RootPanel.get("qweqew").add(table);
-    }
 
-    private class ActionHasCell implements HasCell<Employee, Employee> {
-        private ActionCell<Employee> cell;
+        // Create a FormPanel and point it at a service.
+        final FormPanel form = new FormPanel();
+        form.setAction("/myFormHandler");
 
-        public ActionHasCell(SafeHtml text, ActionCell.Delegate<Employee> delegate) {
-            cell = new ActionCell<Employee>(text, delegate);
-        }
+        // Because we're going to add a FileUpload widget, we'll need to set the
+        // form to use the POST method, and multipart MIME encoding.
+        form.setEncoding(FormPanel.ENCODING_MULTIPART);
+        form.setMethod(FormPanel.METHOD_POST);
 
-        @Override
-        public Cell<Employee> getCell() {
-            return cell;
-        }
+        // Create a panel to hold all of the form widgets.
+        FlowPanel panel = new FlowPanel();
+        form.setWidget(panel);
 
-        @Override
-        public FieldUpdater<Employee, Employee> getFieldUpdater() {
-            return null;
-        }
+        // Create a TextBox, giving it a name so that it will be submitted.
+//        FlowPanel panel1 = new FlowPanel();
+        final InputAndLabel lastnameElement = new InputAndLabel("Фамилия", "Введите фамилию");
+        panel.add(lastnameElement);
 
-        @Override
-        public Employee getValue(Employee object) {
-            return object;
-        }
+        final InputAndLabel firstnameElement = new InputAndLabel("Имя", "Введите имя");
+        panel.add(firstnameElement);
+
+        final InputAndLabel secondnameElement = new InputAndLabel("Отчество", "Введите отчество");
+        panel.add(secondnameElement);
+
+        final InputAndLabel ageElement = new InputAndLabel("Возраст", "Введите возраст");
+        panel.add(ageElement);
+
+        final InputAndLabel experienceElement = new InputAndLabel("Опыт", "Введите опыт");
+        panel.add(experienceElement);
+
+        final InputAndLabel descriptionElement = new InputAndLabel("Описание", "Введите описание");
+        panel.add(descriptionElement);
+
+        Button b = new Button("Сохранить", new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                form.submit();
+            }
+        });
+        b.setStyleName("btn btn-default");
+
+        // Add a 'submit' button.
+        panel.add(b);
+
+        // Add an event handler to the form.
+//        form.addSubmitHandler(new FormPanel.SubmitHandler() {
+//            public void onSubmit(FormPanel.SubmitEvent event) {
+//                // This event is fired just before the form is submitted. We can take
+//                // this opportunity to perform validation.
+//                if (tb.getText().length() == 0) {
+//                    Window.alert("The text box must not be empty");
+//                    event.cancel();
+//                }
+//            }
+//        });
+//        form.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
+//            public void onSubmitComplete(FormPanel.SubmitCompleteEvent event) {
+//                // When the form submission is successfully completed, this event is
+//                // fired. Assuming the service returned a response of type text/html,
+//                // we can get the result text here (see the FormPanel documentation for
+//                // further explanation).
+//                Window.alert(event.getResults());
+//            }
+//        });
+
+        RootPanel.get("edit-form").add(form);
     }
 }
