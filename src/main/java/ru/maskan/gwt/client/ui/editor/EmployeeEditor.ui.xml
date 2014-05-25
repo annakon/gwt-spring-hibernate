@@ -1,0 +1,32 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+    <g:HTMLPanel>
+        <form role="form">
+            <div class="form-group">
+                <label>Фамилия</label>
+                <g:TextBox ui:field="lastname" styleName="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Имя</label>
+                <g:TextBox ui:field="firstname" styleName="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Отчество</label>
+                <g:TextBox ui:field="secondname" styleName="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Возраст</label>
+                <g:TextBox ui:field="age" styleName="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Опыт</label>
+                <g:TextBox ui:field="experience" styleName="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Описание</label>
+                <g:TextBox ui:field="description" styleName="form-control"/>
+            </div>
+            <button type="submit" class="btn btn-default">Сохранить</button>
+        </form>
+    </g:HTMLPanel>
+</ui:UiBinder>

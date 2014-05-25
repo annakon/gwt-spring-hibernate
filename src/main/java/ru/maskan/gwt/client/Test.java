@@ -1,30 +1,30 @@
 package ru.maskan.gwt.client;
 
-import com.google.gwt.cell.client.*;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.cellview.client.*;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
-import ru.maskan.gwt.client.ui.ActionHasCell;
 import ru.maskan.gwt.client.ui.EmployeeTableBuilder;
 import ru.maskan.gwt.client.ui.InputAndLabel;
+import ru.maskan.gwt.client.ui.editor.EmployeeEditor;
+import ru.maskan.gwt.client.ui.editor.EmployeeEditorDriver;
 
-import java.util.LinkedList;
 import java.util.List;
-
-import static com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.DISABLED;
 
 /**
  * Created by akonshina on 23.05.14.
  */
 public class Test implements EntryPoint {
+
+
+    EmployeeEditorDriver driver = GWT.create(EmployeeEditorDriver.class);
 
     private EmployeeTableBuilder tableBuilder = new EmployeeTableBuilder();
 
@@ -32,6 +32,9 @@ public class Test implements EntryPoint {
     private EmployeeListAsync service = GWT.create(EmployeeList.class);
 
     public void onModuleLoad() {
+
+        EmployeeEditor editor = new EmployeeEditor();
+        driver.initialize(editor);
 
         AsyncDataProvider<Employee> provider = new AsyncDataProvider<Employee>() {
             @Override
@@ -55,7 +58,7 @@ public class Test implements EntryPoint {
         };
 
 
-        CellTable table = tableBuilder.buildTable(provider);
+        CellTable table = tableBuilder.buildTable(provider, driver);
 
         // Add it to the root panel.
         RootPanel.get("empl-list").add(table);
@@ -125,5 +128,56 @@ public class Test implements EntryPoint {
 //        });
 
         RootPanel.get("edit-form").add(form);
+
+
+
+
+
+
+        RootPanel.get().add(editor);
+
+//        EmployeeEditor helloWorld = new EmployeeEditor();
+//        Document.get().getBody().appendChild(helloWorld.getElement());
+//        helloWorld.setName("World");
     }
 }
+
+//class EmployeeEditor extends Composite implements Editor<Employee> {
+//
+//    Label nameEditor;
+//
+//    public EmployeeEditor() {
+//        // Instantiate my widgets, usually through UiBinder
+//
+//        initWidget();
+//    }
+//}
+//
+//// A simple demonstration of the overall wiring
+//class EditPersonWorkflow{
+//    // Empty interface declaration, similar to UiBinder
+//    interface Driver extends SimpleBeanEditorDriver<Employee, EmployeeEditor> {}
+//
+//    // Create the Driver
+//    Driver driver = GWT.create(Driver.class);
+//
+//    void edit(Employee p) {
+//        // PersonEditor is a DialogBox that extends Editor<Person>
+//        EmployeeEditor editor = new EmployeeEditor();
+//        // Initialize the driver with the top-level editor
+//        driver.initialize(editor);
+//        // Copy the data in the object into the UI
+//        driver.edit(p);
+//        // Put the UI on the screen.
+//        //editor.center();
+//    }
+//
+//    // Called by some UI action
+//    void save() {
+//        Employee edited = driver.flush();
+//        if (driver.hasErrors()) {
+//            // A sub-editor reported errors
+//        }
+//        //doSomethingWithEditedPerson(edited);
+//    }
+//}

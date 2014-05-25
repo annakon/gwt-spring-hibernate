@@ -21,34 +21,34 @@ public class EmployeeListImpl extends RemoteServiceServlet implements EmployeeLi
 
         l.add(e);
 
-        e.setId(1);
+        e.setId("1");
         e.setFirstname("Anna");
         e.setSecondname("V");
         e.setLastname("Kon");
         e.setExperience("Best");
-        e.setAge(25);
+        e.setAge("25");
         e.setDescription("my");
 
         e = new Employee();
         l.add(e);
 
-        e.setId(1);
+        e.setId("2");
         e.setFirstname("Boris");
         e.setSecondname("V");
         e.setLastname("Ber");
         e.setExperience("Best of the best");
-        e.setAge(24);
+        e.setAge("24");
         e.setDescription("my ex");
 
         e = new Employee();
         l.add(e);
 
-        e.setId(1);
+        e.setId("3");
         e.setFirstname("Rima");
         e.setSecondname("V");
         e.setLastname("Ol");
         e.setExperience("Best of the the best ");
-        e.setAge(26);
+        e.setAge("26");
         e.setDescription("my 7");
 
         return l;

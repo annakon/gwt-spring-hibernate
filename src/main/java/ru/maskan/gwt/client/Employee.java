@@ -7,22 +7,22 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class Employee implements IsSerializable {
 
-    private int id;
+    private String id;
     private String lastname;
     private String firstname;
     private String secondname;
-    private int age;
+    private String age;
     private String experience;
     private String description;
 
     public Employee() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -50,11 +50,11 @@ public class Employee implements IsSerializable {
         this.secondname = secondname;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

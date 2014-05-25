@@ -3,6 +3,9 @@
 <module>
 
     <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.google.gwt.uibinder.UiBinder" />
+    <inherits name="com.google.gwt.editor.Editor" />
+
 
     <entry-point class='ru.maskan.gwt.client.Test'/>
 
