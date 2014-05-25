@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by akonshina on 23.05.14.
  */
-@RemoteServiceRelativePath("EmployeeList")
+@RemoteServiceRelativePath("springGwtServices/employeeService")
 public interface EmployeeList extends RemoteService {
     List<Employee> getAll();
 

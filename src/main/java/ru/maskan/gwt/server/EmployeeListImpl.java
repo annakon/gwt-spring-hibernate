@@ -1,6 +1,9 @@
 package ru.maskan.gwt.server;
 
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import org.springframework.stereotype.Service;
 import ru.maskan.gwt.client.Employee;
 import ru.maskan.gwt.client.EmployeeList;
 
@@ -10,7 +13,8 @@ import java.util.List;
 /**
  * Created by akonshina on 23.05.14.
  */
-public class EmployeeListImpl extends RemoteServiceServlet implements EmployeeList {
+@Service("employeeService")
+public class EmployeeListImpl implements RemoteService, EmployeeList {
 
     @Override
     public String update(Employee employee) {

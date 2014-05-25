@@ -9,6 +9,4 @@
 
     <entry-point class='ru.maskan.gwt.client.Test'/>
 
-    <servlet path="/EmployeeList" class="ru.maskan.gwt.server.EmployeeListImpl"/>
-
 </module>
