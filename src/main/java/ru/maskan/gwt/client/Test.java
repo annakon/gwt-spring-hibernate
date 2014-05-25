@@ -29,6 +29,7 @@ public class Test implements EntryPoint {
     public void onModuleLoad() {
 
         EmployeeEditor editor = new EmployeeEditor();
+        editor.setVisible(false);
 
         AsyncDataProvider<Employee> provider = new AsyncDataProvider<Employee>() {
             @Override

@@ -94,7 +94,9 @@ public class EmployeeTableBuilder {
 
             @Override
             public void execute(Employee object) {
+                table.setVisible(false);
                 editor.edit(object);
+                editor.setVisible(true);
             }
         }));
         cells.add(new ActionHasCell(removeIcon, new ActionCell.Delegate<Employee>() {
