@@ -2,6 +2,8 @@
              xmlns:g="urn:import:com.google.gwt.user.client.ui">
     <g:HTMLPanel>
         <form role="form">
+            <g:Hidden ui:field="id" />
+
             <div class="form-group">
                 <label>Фамилия</label>
                 <g:TextBox ui:field="lastname" styleName="form-control"/>
@@ -26,7 +28,7 @@
                 <label>Описание</label>
                 <g:TextBox ui:field="description" styleName="form-control"/>
             </div>
-            <button type="submit" class="btn btn-default">Сохранить</button>
+            <g:Button ui:field='btnSave' styleName="btn btn-default">Сохранить</g:Button>
         </form>
     </g:HTMLPanel>
 </ui:UiBinder>

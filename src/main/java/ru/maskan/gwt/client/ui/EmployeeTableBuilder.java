@@ -9,7 +9,7 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.view.client.AsyncDataProvider;
 import ru.maskan.gwt.client.Employee;
-import ru.maskan.gwt.client.ui.editor.EmployeeEditorDriver;
+import ru.maskan.gwt.client.ui.editor.EmployeeEditor;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class EmployeeTableBuilder {
         }
     };
 
-    public CellTable buildTable(AsyncDataProvider<Employee> provider, final EmployeeEditorDriver driver) {
+    public CellTable buildTable(AsyncDataProvider<Employee> provider, final EmployeeEditor editor) {
         final CellTable<Employee> table = new CellTable<Employee>();
         table.setStyleName("table table-striped");
         table.setKeyboardSelectionPolicy(DISABLED);
@@ -94,7 +94,7 @@ public class EmployeeTableBuilder {
 
             @Override
             public void execute(Employee object) {
-                driver.edit(object);
+                editor.edit(object);
             }
         }));
         cells.add(new ActionHasCell(removeIcon, new ActionCell.Delegate<Employee>() {

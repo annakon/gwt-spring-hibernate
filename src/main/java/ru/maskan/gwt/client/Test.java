@@ -2,15 +2,14 @@ package ru.maskan.gwt.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.cellview.client.*;
+import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import ru.maskan.gwt.client.ui.EmployeeTableBuilder;
 import ru.maskan.gwt.client.ui.editor.EmployeeEditor;
-import ru.maskan.gwt.client.ui.editor.EmployeeEditorDriver;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ import java.util.List;
 public class Test implements EntryPoint {
 
 
-    EmployeeEditorDriver driver = GWT.create(EmployeeEditorDriver.class);
+
 
     private EmployeeTableBuilder tableBuilder = new EmployeeTableBuilder();
 
@@ -30,7 +29,6 @@ public class Test implements EntryPoint {
     public void onModuleLoad() {
 
         EmployeeEditor editor = new EmployeeEditor();
-        driver.initialize(editor);
 
         AsyncDataProvider<Employee> provider = new AsyncDataProvider<Employee>() {
             @Override
@@ -54,7 +52,7 @@ public class Test implements EntryPoint {
         };
 
 
-        CellTable table = tableBuilder.buildTable(provider, driver);
+        CellTable table = tableBuilder.buildTable(provider, editor);
 
         RootPanel.get("empl-list").add(table);
         RootPanel.get("edit-form").add(editor);
