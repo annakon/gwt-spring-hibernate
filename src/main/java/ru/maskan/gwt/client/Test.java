@@ -157,7 +157,7 @@ public class Test implements EntryPoint {
         table.getColumnSortList().push(lastNameColumn);
 
         // Add it to the root panel.
-        RootPanel.get("qweqew").add(table);
+        RootPanel.get("empl-list").add(table);
 
         // Create a FormPanel and point it at a service.
         final FormPanel form = new FormPanel();
