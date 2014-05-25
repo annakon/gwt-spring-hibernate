@@ -13,6 +13,12 @@ import java.util.List;
 public interface EmployeeList extends RemoteService {
     List<Employee> getAll();
 
+    String update(Employee employee);
+
+
+    List<Employee> search(String str);
+
+
     /**
      * Utility/Convenience class.
      * Use EmployeeList.App.getInstance() to access static instance of EmployeeListAsync

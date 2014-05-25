@@ -64,7 +64,7 @@ public class EmployeeTableBuilder {
         TextColumn<Employee> ageColumn = new TextColumn<Employee>() {
             @Override
             public String getValue(Employee employee) {
-                return String.valueOf(employee.getAge());
+                return employee.getAge();
             }
         };
 
@@ -85,7 +85,7 @@ public class EmployeeTableBuilder {
         TextColumn<Employee> idColumn = new TextColumn<Employee>() {
             @Override
             public String getValue(Employee employee) {
-                return String.valueOf(employee.getId());
+                return employee.getId();
             }
         };
 
@@ -126,9 +126,6 @@ public class EmployeeTableBuilder {
         table.addColumn(editColumn, "Действия");
 
         table.setVisibleRange(0, 3);
-
-        // Connect the list to the data provider.
-        provider.addDataDisplay(table);
 
         // We know that the data is sorted alphabetically by default.
         table.getColumnSortList().push(lastNameColumn);

@@ -9,4 +9,8 @@ import java.util.List;
  */
 public interface EmployeeListAsync {
     void getAll(AsyncCallback<List<Employee>> async);
+
+    void update(Employee employee, AsyncCallback<String> async);
+
+    void search(String str, AsyncCallback<List<Employee>> async);
 }

@@ -10,6 +10,7 @@ import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import ru.maskan.gwt.client.ui.EmployeeTableBuilder;
 import ru.maskan.gwt.client.ui.editor.EmployeeEditor;
+import ru.maskan.gwt.client.ui.editor.TopPanel;
 
 import java.util.List;
 
@@ -18,9 +19,6 @@ import java.util.List;
  */
 public class Test implements EntryPoint {
 
-
-
-
     private EmployeeTableBuilder tableBuilder = new EmployeeTableBuilder();
 
     //    private ArrayList<String> stocks = new ArrayList<String>();
@@ -28,33 +26,36 @@ public class Test implements EntryPoint {
 
     public void onModuleLoad() {
 
-        EmployeeEditor editor = new EmployeeEditor();
+        EmployeeEditor editor = new EmployeeEditor(service);
         editor.setVisible(false);
 
-        AsyncDataProvider<Employee> provider = new AsyncDataProvider<Employee>() {
+        final AsyncDataProvider<Employee> provider = new AsyncDataProvider<Employee>() {
             @Override
             protected void onRangeChanged(HasData<Employee> display) {
-                final int start = display.getVisibleRange().getStart();
 
-                AsyncCallback<List<Employee>> callback = new AsyncCallback<List<Employee>>() {
-                    @Override
-                    public void onFailure(Throwable caught) {
-                        Window.alert(caught.getMessage());
-                    }
-
-                    @Override
-                    public void onSuccess(List<Employee> result) {
-                        updateRowData(start, result);
-                    }
-                };
-                // The remote service that should be implemented
-                service.getAll(callback);
             }
         };
 
+        final CellTable table = tableBuilder.buildTable(provider, editor);
 
-        CellTable table = tableBuilder.buildTable(provider, editor);
+        AsyncCallback<List<Employee>> callback = new AsyncCallback<List<Employee>>() {
+            @Override
+            public void onFailure(Throwable caught) {
+                Window.alert(caught.getMessage());
+            }
 
+            @Override
+            public void onSuccess(List<Employee> result) {
+                table.setRowData(result);
+            }
+        };
+        // The remote service that should be implemented
+        service.getAll(callback);
+
+
+        TopPanel topPanel = new TopPanel(service, table);
+
+        RootPanel.get("empl-top-panel").add(topPanel);
         RootPanel.get("empl-list").add(table);
         RootPanel.get("edit-form").add(editor);
     }

@@ -2,6 +2,10 @@ package ru.maskan.gwt.client;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
  * Created by akonshina on 23.05.14.
  */

@@ -12,6 +12,27 @@ import java.util.List;
  */
 public class EmployeeListImpl extends RemoteServiceServlet implements EmployeeList {
 
+    @Override
+    public String update(Employee employee) {
+        System.out.print(employee.getAge());
+        return null;
+    }
+
+    @Override
+    public List<Employee> search(String str) {
+        List<Employee> l = new ArrayList<Employee>();
+        Employee e = new Employee();
+
+        e.setId("1");
+        e.setFirstname("Anna");
+        e.setSecondname("V");
+        e.setLastname("Kon");
+        e.setExperience("Best");
+        e.setAge("25");
+        e.setDescription("my");
+        l.add(e);
+        return l;
+    }
 
     @Override
     public List<Employee> getAll() {
