@@ -1,5 +1,9 @@
 package ru.maskan.gwt.server.domain;
 
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import ru.maskan.gwt.client.Employee;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -92,4 +96,26 @@ public class HbmEmployee {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Employee toGwtObject() {
+        Employee e = new Employee();
+
+        e.setId(String.valueOf(id));
+        e.setFirstname(firstname);
+        e.setSecondname(secondname);
+        e.setLastname(lastname);
+        e.setExperience(experience);
+        e.setDescription(description);
+
+        DateTime start = new DateTime(age);
+        DateTime end = new DateTime(new Date());
+
+        e.setBirthday(start.toString("dd.MM.yyyy"));
+
+        Period p = new Period(start, end);
+        e.setAge(String.valueOf(p.getYears()));
+
+        return e;
+    }
+
 }
