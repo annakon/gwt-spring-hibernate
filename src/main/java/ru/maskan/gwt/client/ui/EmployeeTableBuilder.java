@@ -7,9 +7,8 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.view.client.AsyncDataProvider;
 import ru.maskan.gwt.client.Employee;
-import ru.maskan.gwt.client.ui.editor.EmployeeEditor;
+import ru.maskan.gwt.client.ui.editor.EmployeeEditDelegate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,10 +34,12 @@ public class EmployeeTableBuilder {
         }
     };
 
-    public CellTable buildTable(AsyncDataProvider<Employee> provider, final EmployeeEditor editor) {
+    public CellTable buildTable(EmployeeEditDelegate editDelegate) {
         final CellTable<Employee> table = new CellTable<Employee>();
         table.setStyleName("table table-striped");
         table.setKeyboardSelectionPolicy(DISABLED);
+
+        editDelegate.setTable(table);
 
         TextColumn<Employee> lastNameColumn = new TextColumn<Employee>() {
             @Override
@@ -89,16 +90,10 @@ public class EmployeeTableBuilder {
             }
         };
 
-        List<HasCell<Employee, ?>> cells = new LinkedList<HasCell<Employee, ?>>();
-        cells.add(new ActionHasCell(editIcon, new ActionCell.Delegate<Employee>() {
 
-            @Override
-            public void execute(Employee object) {
-                table.setVisible(false);
-                editor.edit(object);
-                editor.setVisible(true);
-            }
-        }));
+
+        List<HasCell<Employee, ?>> cells = new LinkedList<HasCell<Employee, ?>>();
+        cells.add(new ActionHasCell(editIcon, editDelegate));
         cells.add(new ActionHasCell(removeIcon, new ActionCell.Delegate<Employee>() {
 
             @Override

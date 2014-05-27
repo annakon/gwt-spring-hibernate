@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 /**
  * Created by akonshina on 23.05.14.
  */
+
 public class Employee implements IsSerializable {
 
     private String id;
@@ -16,6 +17,7 @@ public class Employee implements IsSerializable {
     private String firstname;
     private String secondname;
     private String age;
+    private String birthday;
     private String experience;
     private String description;
 
@@ -76,5 +78,13 @@ public class Employee implements IsSerializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }
