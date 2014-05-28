@@ -26,14 +26,16 @@ public class EmployeeListImpl implements RemoteService, EmployeeList {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public String update(Employee employee) {
-        HbmEmployee hbmemployee=new HbmEmployee(employee);
+        String result;
+        HbmEmployee hbmemployee = new HbmEmployee(employee);
         if (hbmemployee.getId() == null) {
             dao.persist(hbmemployee);
-        }
-        else{
+            result = "Запись успешно добавлена";
+        } else {
             dao.merge(hbmemployee);
+            result = "Запись успешно обновлена";
         }
-        return null;
+        return result;
     }
 
     @Override

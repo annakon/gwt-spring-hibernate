@@ -17,25 +17,30 @@ public class Test implements EntryPoint {
 
     private EmployeeTableBuilder tableBuilder = new EmployeeTableBuilder();
 
-    //    private ArrayList<String> stocks = new ArrayList<String>();
-    private EmployeeListAsync service = GWT.create(EmployeeList.class);
+    public static EmployeeListAsync service;
+
+    public static TopPanel topPanel;
+    public static CellTable table;
+    public static EmployeeEditor editor;
+
+    public static EmployeeEditDelegate editDelegate;
+    public static EmployeeDeleteDelegate deleteDelegate;
 
     public void onModuleLoad() {
 
-        final EmployeeEditor editor = new EmployeeEditor(service);
+        service = GWT.create(EmployeeList.class);
+
+        editor = new EmployeeEditor(service);
         editor.setVisible(false);
 
-        EmployeeEditDelegate editDelegate = new EmployeeEditDelegate(editor);
-        EmployeeDeleteDelegate deleteDelegate = new EmployeeDeleteDelegate(service);
+        editDelegate = new EmployeeEditDelegate();
+        deleteDelegate = new EmployeeDeleteDelegate();
 
-        final CellTable table = tableBuilder.buildTable(editDelegate, deleteDelegate);
+        table = tableBuilder.buildTable();
 
-        EmployeeListAsyncCallback callback = new EmployeeListAsyncCallback(table);
-        service.getAll(callback);
+        service.getAll(new EmployeeListAsyncCallback());
 
-
-
-        TopPanel topPanel = new TopPanel(service, callback, editDelegate);
+        topPanel = new TopPanel();
 
         RootPanel.get("empl-top-panel").add(topPanel);
         RootPanel.get("empl-list").add(table);

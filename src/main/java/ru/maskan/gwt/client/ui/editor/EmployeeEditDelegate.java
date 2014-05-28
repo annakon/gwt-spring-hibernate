@@ -3,27 +3,20 @@ package ru.maskan.gwt.client.ui.editor;
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.user.cellview.client.CellTable;
 import ru.maskan.gwt.client.Employee;
+import ru.maskan.gwt.client.Test;
 
 /**
  * Created by akonshina on 26.05.14.
  */
 public class EmployeeEditDelegate implements ActionCell.Delegate<Employee> {
 
-    private final EmployeeEditor editor;
-    private CellTable<Employee> table;
-
-    public EmployeeEditDelegate(EmployeeEditor editor) {
-        this.editor = editor;
-    }
-
-    public void setTable(CellTable<Employee> table) {
-        this.table = table;
-    }
 
     @Override
     public void execute(Employee object) {
-        table.setVisible(false);
-        editor.edit(object);
-        editor.setVisible(true);
+        Test.topPanel.setVisible(false);
+        Test.table.setVisible(false);
+        Test.editor.edit(object);
+        Test.editor.setVisible(true);
     }
+
 }

@@ -7,22 +7,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import ru.maskan.gwt.client.Employee;
 import ru.maskan.gwt.client.EmployeeListAsync;
 import ru.maskan.gwt.client.EmployeeListAsyncCallback;
+import ru.maskan.gwt.client.Test;
 
 /**
  * Created by akonshina on 26.05.14.
  */
 public class EmployeeDeleteDelegate implements ActionCell.Delegate<Employee> {
-
-    private final EmployeeListAsync service;
-    private CellTable<Employee> table;
-
-    public EmployeeDeleteDelegate(EmployeeListAsync service) {
-        this.service = service;
-    }
-
-    public void setTable(CellTable<Employee> table) {
-        this.table = table;
-    }
 
     @Override
     public void execute(Employee object) {
@@ -42,11 +32,10 @@ public class EmployeeDeleteDelegate implements ActionCell.Delegate<Employee> {
             public void onSuccess(String result) {
                 Window.alert(result);
 
-                EmployeeListAsyncCallback callback2 = new EmployeeListAsyncCallback(table);
-                service.getAll(callback2);
+                Test.service.getAll(new EmployeeListAsyncCallback());
             }
         };
-        service.remove(Integer.valueOf(object.getId()), callback);
+        Test.service.remove(Integer.valueOf(object.getId()), callback);
 
 
     }

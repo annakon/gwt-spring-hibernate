@@ -8,6 +8,7 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import ru.maskan.gwt.client.Employee;
+import ru.maskan.gwt.client.Test;
 import ru.maskan.gwt.client.ui.editor.EmployeeDeleteDelegate;
 import ru.maskan.gwt.client.ui.editor.EmployeeEditDelegate;
 
@@ -35,13 +36,10 @@ public class EmployeeTableBuilder {
         }
     };
 
-    public CellTable buildTable(EmployeeEditDelegate editDelegate, EmployeeDeleteDelegate deleteDelegate) {
+    public CellTable buildTable() {
         final CellTable<Employee> table = new CellTable<Employee>();
         table.setStyleName("table table-striped");
         table.setKeyboardSelectionPolicy(DISABLED);
-
-        editDelegate.setTable(table);
-        deleteDelegate.setTable(table);
 
         TextColumn<Employee> lastNameColumn = new TextColumn<Employee>() {
             @Override
@@ -95,8 +93,8 @@ public class EmployeeTableBuilder {
 
 
         List<HasCell<Employee, ?>> cells = new LinkedList<HasCell<Employee, ?>>();
-        cells.add(new ActionHasCell(editIcon, editDelegate));
-        cells.add(new ActionHasCell(removeIcon, deleteDelegate));
+        cells.add(new ActionHasCell(editIcon, Test.editDelegate));
+        cells.add(new ActionHasCell(removeIcon, Test.deleteDelegate));
         CompositeCell<Employee> cell = new CompositeCell<Employee>(cells);
 
         Column<Employee, Employee> editColumn = new Column<Employee, Employee>(cell) {

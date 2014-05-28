@@ -14,6 +14,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import ru.maskan.gwt.client.Employee;
 import ru.maskan.gwt.client.EmployeeListAsync;
+import ru.maskan.gwt.client.EmployeeListAsyncCallback;
+import ru.maskan.gwt.client.Test;
 
 /**
  * Created by akonshina on 25.05.14.
@@ -45,6 +47,9 @@ public class EmployeeEditor extends Composite implements Editor<Employee> {
     @UiHandler("btnCancel")
     void cancel(ClickEvent e) {
         //TODO implement it
+        Test.topPanel.setVisible(true);
+        Test.table.setVisible(true);
+        Test.editor.setVisible(false);
     }
 
     @UiHandler("btnSave")
@@ -72,6 +77,10 @@ public class EmployeeEditor extends Composite implements Editor<Employee> {
             @Override
             public void onSuccess(String result) {
                 Window.alert(result);
+                Test.topPanel.setVisible(true);
+                Test.service.getAll(new EmployeeListAsyncCallback());
+                Test.table.setVisible(true);
+                Test.editor.setVisible(false);
             }
         };
 

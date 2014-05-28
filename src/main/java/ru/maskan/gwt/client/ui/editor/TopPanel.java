@@ -11,15 +11,12 @@ import com.google.gwt.user.client.ui.Widget;
 import ru.maskan.gwt.client.Employee;
 import ru.maskan.gwt.client.EmployeeListAsync;
 import ru.maskan.gwt.client.EmployeeListAsyncCallback;
+import ru.maskan.gwt.client.Test;
 
 /**
  * Created by akonshina on 25.05.14.
  */
 public class TopPanel extends Composite {
-
-    private final EmployeeListAsync service;
-    private final EmployeeListAsyncCallback callback;
-    private final EmployeeEditDelegate editDelegate;
 
     interface TopPanelBinder extends UiBinder<Widget, TopPanel> {}
     private static TopPanelBinder uiBinder = GWT.create(TopPanelBinder.class);
@@ -27,23 +24,19 @@ public class TopPanel extends Composite {
 
     @UiField TextBox search;
 
-    public TopPanel(EmployeeListAsync service, EmployeeListAsyncCallback callback, EmployeeEditDelegate editDelegate) {
+    public TopPanel() {
         initWidget(uiBinder.createAndBindUi(this));
-
-        this.service = service;
-        this.callback = callback;
-        this.editDelegate = editDelegate;
-    }
+}
 
     @UiHandler("btnSearch")
     void save(ClickEvent e) {
-        service.search(search.getValue(), callback);
+        Test.service.search(search.getValue(), new EmployeeListAsyncCallback());
     }
 
     @UiHandler("btnAdd")
     public void showForm(ClickEvent e) {
 
-        editDelegate.execute(new Employee());
+        Test.editDelegate.execute(new Employee());
     }
 }
 

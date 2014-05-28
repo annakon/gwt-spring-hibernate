@@ -11,12 +11,6 @@ import java.util.List;
  */
 public class EmployeeListAsyncCallback implements AsyncCallback<List<Employee>> {
 
-    private CellTable table;
-
-    public EmployeeListAsyncCallback(CellTable table) {
-        this.table = table;
-    }
-
     @Override
     public void onFailure(Throwable caught) {
         Window.alert(caught.getMessage());
@@ -24,6 +18,6 @@ public class EmployeeListAsyncCallback implements AsyncCallback<List<Employee>> 
 
     @Override
     public void onSuccess(List<Employee> result) {
-        table.setRowData(result);
+        Test.table.setRowData(result);
     }
 }
