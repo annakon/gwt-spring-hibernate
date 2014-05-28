@@ -20,37 +20,33 @@ public class EmployeeDAO {
     @PersistenceContext(unitName = "MyPUnit")
     EntityManager entityManager;
 
-    protected EntityManager getEntityManager() {
-        return entityManager;
-    }
-
     public void persist(HbmEmployee entity) {
-        getEntityManager().persist(entity);
+        entityManager.persist(entity);
     }
 
     public void remove(HbmEmployee entity) {
-        getEntityManager().remove(entity);
+        entityManager.remove(entity);
     }
 
-    public void refresh(HbmEmployee entity) {
-        getEntityManager().refresh(entity);
+    public HbmEmployee findById(Integer id) {
+        return entityManager.find(HbmEmployee.class, id);
     }
 
     public HbmEmployee merge(HbmEmployee entity) {
-        return getEntityManager().merge(entity);
+        return entityManager.merge(entity);
     }
 
     @SuppressWarnings("unchecked")
     public List<HbmEmployee> findAll() {
         String queryStr = "SELECT h FROM HbmEmployee h";
-        Query query = getEntityManager().createQuery(queryStr, HbmEmployee.class);
+        Query query = entityManager.createQuery(queryStr, HbmEmployee.class);
         return query.getResultList();
     }
 
     @SuppressWarnings("unchecked")
     public List<HbmEmployee> search(String str) {
 
-        Query query = getEntityManager().createNativeQuery(SEARCH_SQL, HbmEmployee.class).setParameter("criteria", str);
+        Query query = entityManager.createNativeQuery(SEARCH_SQL, HbmEmployee.class).setParameter("criteria", str);
         return query.getResultList();
     }
 }

@@ -31,7 +31,7 @@ public class EmployeeEditor extends Composite implements Editor<Employee> {
     @UiField TextBox lastname;
     @UiField TextBox firstname;
     @UiField TextBox secondname;
-    @UiField TextBox age;
+    @UiField TextBox birthday;
     @UiField TextBox experience;
     @UiField TextBox description;
 
@@ -42,8 +42,9 @@ public class EmployeeEditor extends Composite implements Editor<Employee> {
         this.service = service;
     }
 
-    public EmployeeEditorDriver getDriver() {
-        return driver;
+    @UiHandler("btnCancel")
+    void cancel(ClickEvent e) {
+        //TODO implement it
     }
 
     @UiHandler("btnSave")

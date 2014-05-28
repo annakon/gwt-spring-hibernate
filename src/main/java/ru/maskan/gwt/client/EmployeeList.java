@@ -12,12 +12,10 @@ import java.util.List;
 @RemoteServiceRelativePath("springGwtServices/employeeService")
 public interface EmployeeList extends RemoteService {
     List<Employee> getAll();
-
-    String update(Employee employee);
-
-
     List<Employee> search(String str);
 
+    String update(Employee employee);
+    String remove(int id);
 
     /**
      * Utility/Convenience class.

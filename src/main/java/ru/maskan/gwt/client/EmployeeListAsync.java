@@ -13,4 +13,6 @@ public interface EmployeeListAsync {
     void update(Employee employee, AsyncCallback<String> async);
 
     void search(String str, AsyncCallback<List<Employee>> async);
+
+    void remove(int id, AsyncCallback<String> async);
 }

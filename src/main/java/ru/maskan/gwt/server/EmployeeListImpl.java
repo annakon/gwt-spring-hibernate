@@ -3,6 +3,8 @@ package ru.maskan.gwt.server;
 import com.google.gwt.user.client.rpc.RemoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.maskan.gwt.client.Employee;
 import ru.maskan.gwt.client.EmployeeList;
 import ru.maskan.gwt.server.dao.EmployeeDAO;
@@ -22,9 +24,24 @@ public class EmployeeListImpl implements RemoteService, EmployeeList {
     private EmployeeDAO dao;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public String update(Employee employee) {
-        System.out.print(employee.getAge());
+        HbmEmployee hbmemployee=new HbmEmployee(employee);
+        if (hbmemployee.getId() == null) {
+            dao.persist(hbmemployee);
+        }
+        else{
+            dao.merge(hbmemployee);
+        }
         return null;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public String remove(int id) {
+        HbmEmployee o = dao.findById(id);
+        dao.remove(o);
+        return "Запись успешно удалена";
     }
 
     @Override

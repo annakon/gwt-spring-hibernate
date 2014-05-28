@@ -5,6 +5,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.RootPanel;
 import ru.maskan.gwt.client.ui.EmployeeTableBuilder;
+import ru.maskan.gwt.client.ui.editor.EmployeeDeleteDelegate;
 import ru.maskan.gwt.client.ui.editor.EmployeeEditDelegate;
 import ru.maskan.gwt.client.ui.editor.EmployeeEditor;
 import ru.maskan.gwt.client.ui.editor.TopPanel;
@@ -25,8 +26,9 @@ public class Test implements EntryPoint {
         editor.setVisible(false);
 
         EmployeeEditDelegate editDelegate = new EmployeeEditDelegate(editor);
+        EmployeeDeleteDelegate deleteDelegate = new EmployeeDeleteDelegate(service);
 
-        final CellTable table = tableBuilder.buildTable(editDelegate);
+        final CellTable table = tableBuilder.buildTable(editDelegate, deleteDelegate);
 
         EmployeeListAsyncCallback callback = new EmployeeListAsyncCallback(table);
         service.getAll(callback);

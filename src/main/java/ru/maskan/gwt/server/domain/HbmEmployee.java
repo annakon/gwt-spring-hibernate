@@ -2,6 +2,7 @@ package ru.maskan.gwt.server.domain;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
+import org.joda.time.format.DateTimeFormat;
 import ru.maskan.gwt.client.Employee;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class HbmEmployee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private String lastname;
@@ -30,7 +31,7 @@ public class HbmEmployee {
     private String secondname;
 
     @Column(nullable = false)
-    private Date age;
+    private Date birthday;
 
     @Column
     private String experience;
@@ -41,11 +42,21 @@ public class HbmEmployee {
     public HbmEmployee() {
     }
 
-    public int getId() {
+    public HbmEmployee(Employee e) {
+        if(!"".equals(e.getId()))this.id = Integer.valueOf(e.getId());
+        this.lastname = e.getLastname();
+        this.firstname = e.getFirstname();
+        this.secondname = e.getSecondname();
+        this.birthday = DateTime.parse(e.getBirthday(), DateTimeFormat.forPattern("dd.MM.yyyy")).toDate();
+        this.experience = e.getExperience();
+        this.description = e.getDescription();
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -73,12 +84,12 @@ public class HbmEmployee {
         this.secondname = secondname;
     }
 
-    public Date getAge() {
-        return age;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setAge(Date age) {
-        this.age = age;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getExperience() {
@@ -107,7 +118,7 @@ public class HbmEmployee {
         e.setExperience(experience);
         e.setDescription(description);
 
-        DateTime start = new DateTime(age);
+        DateTime start = new DateTime(birthday);
         DateTime end = new DateTime(new Date());
 
         e.setBirthday(start.toString("dd.MM.yyyy"));
